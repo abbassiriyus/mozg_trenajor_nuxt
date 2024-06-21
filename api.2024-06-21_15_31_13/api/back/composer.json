@@ -1,0 +1,11 @@
+{
+    "name": "wrql/wrql-core",
+    "autoload": {
+        "psr-4": {
+            "Wrql\\": "app/"
+        }
+    },
+    "require": {
+        "firebase/php-jwt": "^6.9"
+    }
+}
