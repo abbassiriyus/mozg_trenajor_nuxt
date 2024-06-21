@@ -1,0 +1,14 @@
+<svg width="270" height="90" viewBox="0 0 270 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="45" height="45" transform="translate(45)" fill="#3281FF"/>
+<rect width="45" height="45" transform="translate(135)" fill="#3281FF"/>
+<rect width="45" height="45" transform="translate(225)" fill="#3281FF"/>
+<rect width="45" height="45" transform="translate(90)" fill="#FBFBFB"/>
+<rect width="45" height="45" transform="translate(180)" fill="#FBFBFB"/>
+<rect width="45" height="45" transform="translate(90 45)" fill="#3281FF"/>
+<rect width="45" height="45" transform="translate(180 45)" fill="#3281FF"/>
+<rect width="45" height="45" transform="translate(0 45)" fill="#3281FF"/>
+<rect width="45" height="45" transform="translate(135 45)" fill="#FBFBFB"/>
+<rect width="45" height="45" transform="translate(45 45)" fill="#FBFBFB"/>
+<rect width="45" height="45" fill="#FBFBFB"/>
+<rect width="45" height="45" transform="translate(225 45)" fill="#FBFBFB"/>
+</svg>

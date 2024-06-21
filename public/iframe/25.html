@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0045)https://shamil-ahmadullin.ru/upr/slegka3.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+	  
+	  <title>Таблице Шульте (клик)| Упражнения скорочтения для детей.</title>
+	<meta property="og:type" content="website">
+    <meta property="og:title" content="Таблице Шульте (клик)| Упражнения скорочтения для детей.">
+	<meta property="og:description" content="Упражнения по скорочтению и развитию памяти для детей. Школа скорочтения по методике Шамиля Ахмадуллина.">
+	<meta property="og:image" content="http://kazan.turboread.ru/img/upr.jpg">
+    <meta property="twitter:title" content="Таблице Шульте (клик).| Упражнения скорочтения для детей.">
+    <meta name="description" content="Упражнения по скорочтению и развитию памяти для детей. Школа скорочтения по методике Шамиля Ахмадуллина..">
+    <meta property="twitter:description" content="Упражнения по скорочтению и развитию памяти для детей. Школа скорочтения по методике Шамиля Ахмадуллина.">
+    <meta property="og:site_name" content="Школа скорочтения для детей">
+    <link rel="image_src" href="http://kazan.turboread.ru/img/upr.jpg">
+    <meta property="twitter:image" content="http://kazan.turboread.ru/img/upr.jpg">
+	<meta name="author" content="Шамиль Ахмадуллин">
+    <meta name="keywords" content="упражнения скорочтение развития памяти уроки скорочтение игра задания онлайн упражения">
+<script src="./25_files/jquery.min.js"></script>
+<link rel="stylesheet" href="./25_files/style.css">
+<link rel="stylesheet" href="./25_files/tablestyle3.css">
+
+
+</head><body onload="init_table_size()">
+
+<div id="settings">
+<table align="center" bgcolor="#3281FF" cellspacing="15" cellpadding="2">
+  <tbody><tr>
+    <td>
+	
+	
+	
+	<select title="Длина пути" name="speedsize" id="path_len" onchange="set_path_len()">
+	 <option disabled="" selected="" value="3">Длина пути </option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>
+	<option value="9">9</option>
+	<option value="10">10</option>
+	</select>
+	
+	</td>
+	
+	<td>
+
+	
+	<select title="Скорость прозношения" name="speedsize" id="speech_speed" onchange="set_speed()">
+	 <option disabled="" selected="" value="4">Скорость прозношения</option>
+	<option value="4">Очень медленно</option>
+	<option value="3">Медленно</option>
+	<option value="2">Средне</option>
+	<option value="1">Быстро</option>
+	<option value="0">Очень быстро</option>
+
+	</select>
+	
+	</td>
+	
+	<td>
+
+	
+	<select title="Случная точка старт" name="speedsize" id="random_start">
+	 <option disabled="" selected="" value="0">Точка старта</option>
+	<option value="1">Случайно</option>
+	<option value="0">В центр</option>
+
+	</select>
+	
+	</td>
+
+  </tr>
+</tbody></table>
+
+
+
+
+
+
+</div>
+	
+		<div class="main">
+		
+		<div id="user_task" class="top-text">Прослушайте маршрут и отметьте конечную клетку.</div>
+		
+		<div id="here_table">
+		 <table id="match_table"><tr><td class="shulte_table" id="t1" style="height: 206.1px;">x</td><td class="shulte_table" id="t2" style="height: 206.1px;">x</td><td class="shulte_table" id="t3" style="height: 206.1px;">x</td></tr><tr><td class="shulte_table" id="t4" style="height: 206.1px;">x</td><td class="shulte_table" id="t5" style="height: 206.1px;">S</td><td class="shulte_table" id="t6" style="height: 206.1px;">x</td></tr><tr><td class="shulte_table" id="t7" style="height: 206.1px;">x</td><td class="shulte_table" id="t8" style="height: 206.1px;">x</td><td class="shulte_table" id="t9" style="height: 206.1px;">x</td></tr></table></div>
+		<button class="knopka" id="gen">Начать упражнение! </button>
+	
+		
+	</div>
+	<h3 class="big_text" style="margin-top:35px; padding: 0;line-height:35px;font-weight:800;">Ваши результаты: </h3>
+	<div id="user_res_time" class="big_text"></div>
+
+
+<script type="text/javascript">
+
+var path_len = 3;
+mis_count = 0;
+max_mis_count = 2;
+pause_len = 3
+var path = [];
+var list = [];
+var pause_sound = new Audio('voices/s166.mp3');
+var directions = ["u", "r", "d", "l"];
+var n = 3,
+    m = 3;
+var rxc = Math.floor(m / 2),
+    ryc = Math.floor(n / 2);
+var sx = rxc,
+    sy = ryc;
+var instance = new sh_match();
+
+var res_txt = "";
+
+let clickCount = 0;
+let resTime;
+let trueClick = path_len;
+let falseClick = mis_count;
+
+
+function set_speed() {
+    pause_len = Number($("#speech_speed :selected").val());
+	console.log(pause_len)
+	
+}
+
+function set_path_len() {
+    path_len = Number($("#path_len :selected").val());
+    trueClick = path_len;
+	console.log(path_len)
+}
+
+
+function gen_path(path_len) {
+    i = 1;
+    yc = ryc;
+    xc = rxc;
+    path = [];
+    list = [];
+    while (i <= path_len) {
+        nxc = xc;
+        nyc = yc;
+        dir = getRandomDirection();
+        list_dir = "";
+
+
+        switch (dir) {
+            case 'u':
+                nyc -= 1;
+                list_dir = "voices/up.mp3"
+                break;
+
+            case 'r':
+                nxc += 1;
+                list_dir = "voices/right.mp3"
+                break;
+
+            case 'd':
+                nyc += 1;
+                list_dir = "voices/down.mp3"
+                break;
+
+            case 'l':
+                nxc -= 1;
+                list_dir = "voices/left.mp3"
+                break;
+        }
+
+        if (in_field(nxc, nyc)) {
+            i++;
+            path.push(dir)
+            list.push(list_dir)
+            yc = nyc
+            xc = nxc
+        }
+
+        rxc = xc
+        ryc = yc
+    }
+
+
+}
+
+function init_table_size() {
+    for (var i = 1; i <= n * m; i++)
+        $('#t' + i).css('height', $('#t' + i).width() * 0.9);
+}
+$(window).resize(init_table_size);
+
+function in_field(xc, yc) {
+    return (xc < n) && (xc >= 0) && (yc < m) && (yc >= 0)
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+
+function getRandomDirection() {
+    return directions[Math.floor(Math.random() * directions.length)];
+}
+
+
+
+
+$(document).ready(function() {
+    $('.shulte_table').click(function() {
+        if (instance.started) {
+            current_id = $(this).attr('id')
+            current_id_num = current_id.substr(1);
+            tec_pos = ryc * n + rxc + 1
+
+            if (current_id_num == tec_pos) {
+				document.getElementById('user_task').innerHTML = " Вы выиграли.";
+                res_txt = "Победа."
+                instance.stop_match();
+                
+            } else if (mis_count < max_mis_count)
+
+            {
+                document.getElementById('user_task').innerHTML = "Ошибка осталось попыток: " + (max_mis_count - mis_count).toString();
+                $("#" + current_id).animate({
+                        fontSize: "150%"
+                    }, 250)
+                    .animate({
+                        fontSize: "100%"
+                    }, 150)
+                mis_count++;
+                falseClick++;
+            } else {
+				document.getElementById('user_task').innerHTML = "Игра закончена. Вы проиграли. "
+                res_txt = "Поражение."
+                instance.stop_match();
+                
+            }
+        }
+    });
+});
+
+
+
+
+function autoplay(i) {
+    var sound = new Howl({
+        src: [list[i]],
+        preload: true,
+        onend: function() {
+            if ((i + 1) != list.length) {
+                autoplay(i + 1)
+            }
+        }
+    })
+    sound.play();
+}
+
+
+function make_pause(x) {
+    add_file = ""
+    switch (x) {
+
+        case 0:
+            add_file = "voices/s200.mp3"
+            break;
+
+        case 1:
+            add_file = "voices/s400.mp3"
+            break;
+
+        case 2:
+            add_file = "voices/s700.mp3"
+            break;
+
+        case 3:
+            add_file = "voices/s1000.mp3"
+            break;
+
+        case 4:
+            add_file = "voices/s1400.mp3"
+            break;
+    }
+
+    let temp_list = []
+    for (let x of list) {
+        temp_list.push(x);
+        temp_list.push(add_file);
+    }
+    list = temp_list;
+}
+
+function new_start_position() {
+    tec_pos = sy * n + sx + 1;
+    document.getElementById('t' + tec_pos).innerHTML = "x";
+    ryc = getRandomInt(0, n-1);
+    rxc = getRandomInt(0, m-1);
+    tec_pos = ryc * n + rxc + 1;
+    document.getElementById('t' + tec_pos).innerHTML = "S";
+    sx = rxc;
+    sy = ryc;
+}
+
+function old_start_position() {
+    rxc = Math.floor(m / 2),
+    ryc = Math.floor(n / 2);
+}
+
+
+function sh_match() {
+    var oldthis = this;
+    this.started = false;
+
+    this.staring = async function() {
+	
+		if (Number($("#random_start :selected").val()))
+			new_start_position();
+		else
+			old_start_position();
+        $(".shulte_table").fadeTo(0, 1);
+        this.started = true;
+        mis_count = 0;
+        gen_path(path_len);
+
+        document.getElementById('match_table').style.opacity = 1.0;
+        document.getElementById('user_task').innerHTML = "Прослушайте маршрут и отметьте конечную клетку.";
+        $('#gen').hide();
+
+        console.log(path);
+        make_pause(pause_len);
+        autoplay(0);
+
+    }
+
+    this.stop_match = function() {
+
+        oldthis.started = false;
+        document.getElementById('user_res_time').innerHTML = res_txt + ' <br />' + document.getElementById('user_res_time').innerHTML;
+        $('#gen').show();
+        document.getElementById('match_table').style.opacity = 0.2;
+        window.parent.postMessage({ 
+					status: true,
+					type: 'end',
+					info: {
+						clickCount: clickCount,
+						resTime: resTime,
+						trueClick: trueClick,
+						falseClick: falseClick
+					}    
+				}, '*');
+    }
+
+}
+
+
+$(document).ready(function() {
+    document.getElementById('gen').onclick = function ttt() {
+        pause_sound.play();
+        if (instance.started) instance.stop_match();
+        else {instance.staring();
+            window.parent.postMessage({ 
+						status: true,
+						type: 'start'  
+					}, '*');
+        }
+    }
+
+
+
+});
+
+function add_html_table(w, h) {
+    count_id = 1
+    var table = $('<table>').attr('id', 'match_table');
+    for (i = 0; i < h; i++) {
+        var row = '';
+
+        for (j = 0; j < w; j++) {
+            var cell = ""
+            letter = j == Math.floor(n / 2) && i == Math.floor(m / 2) ? "S" : "x";
+            cell = '<td class="shulte_table" id="t' + count_id + '">' + letter + '</td>';
+            count_id++;
+            row += cell;
+        }
+        table.append('<tr>' + row + '</tr>');
+    }
+
+    $('#here_table').append(table);
+
+}
+
+
+	</script>
+<script src="./25_files/howler.min.js" integrity="sha512-ALoawPS0JxHQ+8dGL7htZIlVNRaE/SN9gHD4G8pJJTi9H4BQ/3PjdvhggSGR34g00mvTPFkxQuveQUsJA5664Q==" crossorigin="anonymous"></script>	
+	
+</body></html>

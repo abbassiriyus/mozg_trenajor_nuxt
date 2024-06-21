@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0045)https://shamil-ahmadullin.ru/upr/shulte4.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+	  
+	  <title>Таблице Шульте (клик)| Упражнения скорочтения для детей.</title>
+<script src="./21_files/jquery.min.js"></script>
+<link rel="stylesheet" href="./21_files/style.css">
+<link rel="stylesheet" href="./21_files/tablestyle5.css">
+<script type="text/javascript">
+let clickCount = 0;
+let resTime;
+let trueClick = 0;
+let falseClick = 0;
+
+			function init_table_size(){
+		for(var i=1; i<=n*n; i++) 
+			$('#t'+i).css('height', $('#t'+i).width()*0.9);
+	}
+	$(window).resize(init_table_size);
+
+
+		function getRandomInt(min, max)
+		{
+		  return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		function swap(a, i1, i2) {
+				var t = a[i1]; a[i1] = a[i2]; a[i2] = t;
+			}
+
+	var n=4
+	var free = new Array(n*n);
+	var tec = 1;
+	var instance = new sh_match();
+	
+	function filltable()
+		{
+		
+			for(i=0;i<n*n;i++)
+				free[i]=i+1;
+			
+			for(i=0;i<n*n*2;i++)
+				swap(free,getRandomInt(0,n*n-1),getRandomInt(0,n*n-1))
+				
+			for(i=1;i<(n*n+1);i++)
+				document.getElementById('t'+i).innerHTML=free[i-1];
+				document.getElementById('match_table').style.opacity=1.0;
+				$('#gen').hide();
+		}
+		
+$(document).ready(function(){
+    $('.shulte_table').click(function() {
+		if (instance.started)  {
+			clickCount++;
+		
+		current_id=$(this).attr('id')
+       
+		current_id_num=current_id.substr(1);
+		
+		if(free[current_id_num-1]==tec){
+		tec++;
+		$("#"+current_id).fadeTo(0, 0.3);
+
+		trueClick++;
+	
+		
+		if(tec==(n*n+1)) { instance.stop_match();  return false;}
+
+		} else
+		{ $("#"+current_id).animate( { fontSize:"150%"}, 250 )
+         .animate( { fontSize:"100%" } , 150 )
+		 falseClick++;
+		}
+		
+		
+		}
+    });
+});
+
+
+
+
+		function sh_match() {
+			var oldthis = this;
+			this.started = false;
+
+			this.staring = function() {
+				tec = 1;
+				$(".shulte_table").fadeTo(0, 1);
+				this.started = true;		
+				filltable();
+				this.timer = setInterval(this.show_tick_time,100);
+				this.starttime = new Date();
+			}
+			this.show_tick_time = function() {document.getElementById('timer').innerHTML='Время: '+Math.floor((new Date() - oldthis.starttime)/100)/10+' сек.';}
+			
+			this.stop_match = function() {
+				clearInterval(oldthis.timer);
+				oldthis.started = false;
+				resTime = Math.floor((new Date() - oldthis.starttime)/100)/10;
+				document.getElementById('user_res_time').innerHTML=(new Date()).toLocaleString()+' &mdash; '+Math.floor((new Date() - oldthis.starttime)/100)/10+' сек.<br />'+document.getElementById('user_res_time').innerHTML;	
+				$('#gen').show();
+				document.getElementById('match_table').style.opacity=0.2;
+
+				window.parent.postMessage({ 
+					status: true,
+					type: 'end',
+					info: {
+						clickCount: clickCount,
+						resTime: resTime,
+						trueClick: trueClick,
+						falseClick: falseClick
+					}    
+				}, '*');
+			}
+			
+		}
+
+		
+		$(document).ready(function() {
+			document.getElementById('gen').onclick = function ttt() {
+			
+				if (instance.started) instance.stop_match();
+				else {instance.staring();
+					window.parent.postMessage({ 
+						status: true,
+						type: 'start'  
+					}, '*');
+				}
+			}
+			
+			
+
+		});
+
+	</script>
+
+</head><body onload="init_table_size()">
+
+
+	
+	
+		<div class="main">
+		<table id="match_table"><tbody>
+				<tr>
+<td class="shulte_table" id="t1" style="height: 153.675px;">1</td>
+<td class="shulte_table" id="t2" style="height: 153.675px;">2</td>
+<td class="shulte_table" id="t3" style="height: 153.675px;">3</td>
+<td class="shulte_table" id="t4" style="height: 153.675px;">4</td></tr> <tr>
+<td class="shulte_table" id="t5" style="height: 153.675px;">5</td>
+<td class="shulte_table" id="t6" style="height: 153.675px;">6</td>
+<td class="shulte_table" id="t7" style="height: 153.675px;">7</td>
+<td class="shulte_table" id="t8" style="height: 153.675px;">8</td></tr> <tr>
+<td class="shulte_table" id="t9" style="height: 153.675px;">9</td>
+<td class="shulte_table" id="t10" style="height: 153.675px;">10</td>
+<td class="shulte_table" id="t11" style="height: 153.675px;">11</td>
+<td class="shulte_table" id="t12" style="height: 153.675px;">12</td></tr> <tr>
+<td class="shulte_table" id="t13" style="height: 153.675px;">13</td>
+<td class="shulte_table" id="t14" style="height: 153.675px;">14</td>
+<td class="shulte_table" id="t15" style="height: 153.675px;">15</td>
+<td class="shulte_table" id="t16" style="height: 153.675px;">16</td></tr> 
+			</tbody>
+		</table>
+		<button class="knopka" id="gen">Начать упражнение! </button>
+		<div id="timer" style="margin: 20px 0; font-size: 29px;text-align:center"></div>
+		
+	</div>
+	<h3 style="margin-top:35px; padding: 0;text-align:center;font-size: 29px;line-height:35px;font-weight:800;">Ваши результаты: </h3>
+	<div id="user_res_time" style="text-align:center;font-size: 29px;"></div>
+</body></html>

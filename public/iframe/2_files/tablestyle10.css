@@ -1,0 +1,63 @@
+		
+		
+	
+		
+#match_table {
+  
+    border-collapse:collapse; /* Убираем двойные линии между ячейками */
+	table-layout: auto; 
+	font-size: 60px;
+	width: 750px;
+    opacity: 0.2;
+	margin: auto;
+	font-weight:700;
+	font-family: "Lucida Sans Typewriter", "Lucida Console", monaco, "Bitstream Vera Sans Mono", monospace;
+	margin-bottom:40px;
+	margin-top:40px;
+
+   }
+		 TD, TH {
+   
+    border: 1px solid black; /* Параметры рамки */
+    background-repeat: no-repeat ;	
+	 background-position: center center;
+   
+   }
+   
+@media (max-width: 980px)
+{
+#match_table {
+  
+	font-size: 56px;
+	width: 600px;
+	font-weight:500;
+	margin-bottom:30px;
+	margin-top:30px;
+
+   }
+}  
+
+@media (max-width: 740px)
+{
+#match_table {
+  
+	font-size: 42px;
+	width: 90%;
+font-weight:400;
+
+   }
+}  
+
+@media (max-width: 480px) {
+
+#match_table {
+  
+	font-size: 26px;
+	width: 95%;
+
+	font-weight:400;
+	margin-bottom:15px;
+	margin-top:15px;
+	font-weight:300;
+   }
+}

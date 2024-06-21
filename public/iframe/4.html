@@ -1,0 +1,654 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta http-equiv="Content-Type" content="text/html">
+
+<script src="./4_files/jquery.min.js"></script>
+<!-- <script src="//webasr.yandex.net/jsapi/v1/webspeechkit.js" type="text/javascript"></script> -->
+<script type="text/javascript">
+
+var znak = ['+'];
+var interval_id;
+var zn,ot,ot1,cor_answer,wr_answer;
+old_example="";
+new_example="";
+var proverka=true;
+var res=false;
+function getClientWidth()
+{
+ return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
+}
+
+function rinc(a)
+{
+ return a=a+getRandomInt(1, 3);
+}
+function rdec(a)
+{
+ return a=a-getRandomInt(1, 3);
+}
+
+function getClientHeight()
+{
+ return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientHeight:document.body.clientHeight;
+}
+
+function getRandomInt(min, max)
+{
+ return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function getZnak()
+{
+ return znak[getRandomInt(0, znak.length-1)]
+}
+
+function max(a,b)
+{
+ if (a>b) {return a} else {return b};
+}
+function min(a,b)
+{
+ if (a<b) {return a} else {return b};
+}
+
+function engine()
+{
+if ($('#inputotvet').prop('checked') && !proverka) {
+
+if (ot== Number($('#numotvet').val()) || ot==ot1 ) {$('#proverka').text("Верно"); $('#proverka').animate({opacity:'0.99'},1000).animate({opacity:'0.0'},1); cor_answer++; } 
+	else {$('#proverka').text("Неверно. Ответ: "+ot.toString(10)); $('#proverka').animate({opacity:'0.99'},1000).animate({opacity:'0.0'},1); wr_answer++;}
+/*if (Number($('#speed').val())>=5){
+ya.speechkit.recognize({
+ 	apikey: 'ffaba112-9008-4d0d-93e5-93b58bbe75ae',
+      model: 'numbers',
+	// Функция будет вызвана, когда распознавание завершится.
+    doneCallback: function(text) {
+    	if(text!=""){
+        console.log("Финальный результат распознавания: " + text);
+		ot1=Number(text);
+        $('#numotvet').val(Number(text));
+       }
+    },
+    // Функция вызовется, как только сессия будет инициализирована. 
+    initCallback: function () {
+         console.log("Процесс распознавания запущен.");  
+    },
+    // Вызывается в случае возникновения ошибки.
+    errorCallback: function(err) {
+         console.log("Возникла ошибка: " + err);
+    },
+    // Длительность промежутка тишины, при наступлении которой
+    // распознавание завершается.
+    utteranceSilence: Number($('#speed').val())*25
+});
+}*/
+}
+proverka=false;
+$('#numotvet').val("");
+
+
+n1=getRandomInt(Number($('#min1').val()), Number($('#max1').val()));
+zn=getZnak();
+n2=getRandomInt(Number($('#min2').val()), Number($('#max2').val()));
+//minres=Number($('#minr').val());
+//maxres=Number($('#maxr').val());
+
+if ($('input:radio[name=ch][value=sotni]').prop("checked")) { n1=Math.floor(n1/100);n1=n1*100;n2=Math.floor(n2/100);n2=n2*100;}
+if ($('input:radio[name=ch][value=desyatki]').prop("checked")) { n1=Math.floor(n1/10);n1=n1*10;n2=Math.floor(n2/10);n2=n2*10;}
+
+
+
+
+
+
+if(zn=="-") {
+//n2=getRandomInt(max(Number($('#min1').val()),n1-maxres), min(Number($('#max1').val()),n1-minres));
+
+if (!$('input:radio[name=chrs][value=off]').prop("checked")){
+if (n1>=0 && n2>=0){
+if ($('input:radio[name=chrs][value=ch10]').prop("checked")) { while (Math.abs(n1)%10>=Math.abs(n2)%10) {n2=rdec(n2); n1=rinc(n1);}}
+if ($('input:radio[name=chrs][value=ch100]').prop("checked")) { while (Math.abs(n1)%100>=Math.abs(n2)%100)  {n2=rdec(n2); n1=rinc(n1);}}
+}
+if (n1<0 && n2<0){
+if ($('input:radio[name=chrs][value=ch10]').prop("checked")) { while (Math.abs(n1)%10<=Math.abs(n2)%10) {n2=rinc(n2); n1=rdec(n1);}}
+if ($('input:radio[name=chrs][value=ch100]').prop("checked")) { while (Math.abs(n1)%100<=Math.abs(n2)%100) {n2=rinc(n2); n1=rdec(n1);}}
+} 
+if (n1<0 && n2>=0){
+if ($('input:radio[name=chrs][value=ch10]').prop("checked")) { while (n1%10-n2%10>=-10) {n2=rinc(n2); n1=rdec(n1);}}
+if ($('input:radio[name=chrs][value=ch100]').prop("checked")) { while (n1%100-n2%100>=-100) {n2=rinc(n2); n1=rdec(n1);}}
+}
+if (n1>=0 && n2<0){
+if ($('input:radio[name=chrs][value=ch10]').prop("checked")) { while (n1%10-n2%10<=10) {n2=rdec(n2); n1=rinc(n1);}; }
+if ($('input:radio[name=chrs][value=ch100]').prop("checked")) { while (n1%100-n2%100<=100) {n2=rdec(n2);n1=rinc(n1);}; }
+}
+}
+if ($('#mesto').prop('checked')) { if (getRandomInt(0,100) > 50) { temp_num=n2; n2=n1;n1=temp_num;} } 
+ot=n1-n2;
+}
+
+if(zn=="+") {
+//n2=getRandomInt(max(Number($('#min1').val()),minres-n1), min(Number($('#max1').val()),maxres-n1));
+if (!$('input:radio[name=chrs][value=off]').prop("checked")){
+if (n1>=0 && n2>=0){
+
+if ($('input:radio[name=chrs][value=ch10]').prop("checked")) { while (n1%10+n2%10<=10) {n2=rinc(n2); n1=rinc(n1);}; }
+if ($('input:radio[name=chrs][value=ch100]').prop("checked")) { while (n1%100+n2%100<=100) {n2=rinc(n2);n1=rinc(n1);}; }
+}
+if (n1<0 && n2<0){
+if ($('input:radio[name=chrs][value=ch10]').prop("checked")) { while (n1%10+n2%10<=-10) {n2=rdec(n2); n1=rdec(n1);}}
+if ($('input:radio[name=chrs][value=ch100]').prop("checked")) { while (n1%100+n2%100<=-100) {n2=rdec(n2); n1=rdec(n1);}}
+}
+if (n1<0 && n2>=0){
+if ($('input:radio[name=chrs][value=ch10]').prop("checked")) { while (Math.abs(n1)%10<=Math.abs(n2)%10) {n2=rinc(n2); n1=rdec(n1);}}
+if ($('input:radio[name=chrs][value=ch100]').prop("checked")) { while (Math.abs(n1)%100<=Math.abs(n2)%100) {n2=rinc(n2); n1=rdec(n1);}}
+}
+if (n1>=0 && n2<0){
+if ($('input:radio[name=chrs][value=ch10]').prop("checked")) { while (Math.abs(n1)%10>=Math.abs(n2)%10) {n2=rdec(n2); n1=rdec(n1);}}
+if ($('input:radio[name=chrs][value=ch100]').prop("checked")) { while (Math.abs(n1)%100>=Math.abs(n2)%100) {n2=rdex(n2); n1=rdec(n1);}}
+}
+ }
+
+if ($('#mesto').prop('checked')) { if (getRandomInt(0,100) > 50) { temp_num=n2; n2=n1;n1=temp_num;} } 
+ot=n1+n2;
+}
+
+if(zn=="×") {
+//n2=getRandomInt(max(Number($('#min1').val()),minres/n1), min(Number($('#max1').val()),maxres/n1));
+if ($('#mesto').prop('checked')) { if (getRandomInt(0,100) > 50) { temp_num=n2; n2=n1;n1=temp_num;} } 
+ot=n1*n2;
+}
+
+if(zn=="÷") {
+//n2=getRandomInt(max(Number($('#min1').val()),minres/n1), min(Number($('#max1').val()),maxres/n1));
+if ($('#mesto').prop('checked')) { if (getRandomInt(0,100) > 50) { temp_num=n2; n2=n1;n1=temp_num;} } 
+ot=n1/n2;
+}
+
+if (n2<0) {str=n1.toString(10)+" "+zn+" ("+n2.toString(10)+")";} else	{str=n1.toString(10)+" "+zn+" "+n2.toString(10);}
+
+
+if ($('#inputotvet').prop('checked')) {
+setTimeout(function(){$('#primer').text(str)},min(Number($('#speed').val())*400,1000))
+}
+else {$('#primer').text(str)}
+console.log(str+" = "+ot.toString(10));
+old_example=new_example;
+ new_example=str;
+}
+
+function getAllUrlParams(url) {
+    var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+    var obj = {};
+    if (queryString) {
+        queryString = queryString.split('#')[0];
+        var arr = queryString.split('&');
+        for (var i = 0; i < arr.length; i++) {
+            var a = arr[i].split('=');
+            var paramNum = undefined;
+            var paramName = a[0].replace(/\[\d*\]/, function(v) {
+                paramNum = v.slice(1, -1);
+                return '';
+            });
+            var paramValue = typeof(a[1]) === 'undefined' ? true : a[1];
+            paramName = paramName.toLowerCase();
+            paramValue = paramValue.toLowerCase();
+            if (obj[paramName]) {
+                if (typeof obj[paramName] === 'string') {
+                    obj[paramName] = [obj[paramName]];
+                }
+                if (typeof paramNum === 'undefined') {
+                    obj[paramName].push(paramValue);
+                } else {
+                    obj[paramName][paramNum] = paramValue;
+                }
+            } else {
+                obj[paramName] = paramValue;
+            }
+        }
+    }
+    return obj;
+}
+// url.com/path1/pathn/?ch1fr=-10&ch1to=10&ch2fr=-10&ch2to=10&over=[n,ten,hun]&numtype=[all,ten,hun]&plus=[n,y]&minus=[n,y]&umn=[n,y]&delit=[n,y]
+//	&rndorder=[n,y]&speed=2.5&otvet=[n,y]&alltime=[n,y]&res=y&noedit=y
+function isnUnd (str)
+{
+if (str=='undefined') return false;
+else return true;
+}
+
+function setPropByUrl()
+{
+
+if (isnUnd(getAllUrlParams().ch1fr)) {$('#min1').val(getAllUrlParams().ch1fr)}
+if (isnUnd(getAllUrlParams().ch1to)) {$('#max1').val(getAllUrlParams().ch1to)}
+if (isnUnd(getAllUrlParams().ch2fr)) {$('#min2').val(getAllUrlParams().ch2fr)}
+if (isnUnd(getAllUrlParams().ch2to)) {$('#max2').val(getAllUrlParams().ch2to)}
+if (isnUnd(getAllUrlParams().speed)) {$('#speed').val(getAllUrlParams().speed)}
+if (getAllUrlParams().over=="n") {$("[name=chrs]").val(["off"]);}
+if (getAllUrlParams().over=="ten") {$("[name=chrs]").val(["ch10"]);}
+if (getAllUrlParams().over=="hun") {$("[name=chrs]").val(["ch100"]);}
+if (getAllUrlParams().numtype=="all") {$("[name=ch]").val(["lubie"]);}
+if (getAllUrlParams().numtype=="ten") {$("[name=ch]").val(["desyatki"]);}
+if (getAllUrlParams().numtype=="hun") {$("[name=ch]").val(["sotni"]);}
+if (getAllUrlParams().plus== "y") {$('#zplus').prop('checked',  	true);if(znak.indexOf('+')==-1) {znak.push('+');}}
+if (getAllUrlParams().minus=="y") {$('#zminus').prop('checked', true);if(znak.indexOf('-')==-1) {znak.push('-');}}
+if (getAllUrlParams().umn==  "y") {$('#zumn').prop('checked',   true);if(znak.indexOf('×')==-1) {znak.push('×');}}
+if (getAllUrlParams().delit=="y") {$('#zdelit').prop('checked', true);if(znak.indexOf('÷')==-1) {znak.push('÷');}}
+if (getAllUrlParams().plus== "n") {$('#zplus').prop('checked',  false); if(znak.indexOf('+')!=-1) {znak.splice(znak.indexOf('+'),1)}}
+if (getAllUrlParams().minus=="n") {$('#zminus').prop('checked', false); if(znak.indexOf('-')!=-1) {znak.splice(znak.indexOf('-'),1)}}
+if (getAllUrlParams().umn==  "n") {$('#zumn').prop('checked',   false); if(znak.indexOf('×')!=-1) {znak.splice(znak.indexOf('×'),1)}}
+if (getAllUrlParams().delit=="n") {$('#zdelit').prop('checked', false); if(znak.indexOf('÷')!=-1) {znak.splice(znak.indexOf('÷'),1)}}
+if (getAllUrlParams().rndorder=="n") {$('#mesto').prop('checked', false);}
+if (getAllUrlParams().rndorder== "y") {$('#mesto').prop('checked',  true);}
+if (getAllUrlParams().otvet=="n") {$('#inputotvet').prop('checked', false); $('#divotvet').hide();}
+if (getAllUrlParams().otvet== "y") {$('#inputotvet').prop('checked',  true); $('#divotvet').show();}
+if (!isNaN(getAllUrlParams().alltime)) {setTimeout(function(){ clearInterval(interval_id); interval_id=-1;  if (res) {$('#primer').text("Тренировка закончена "); alert("Код: 	"+getCode())} else $('#primer').text("Тренировка закончена")},(Number(getAllUrlParams().alltime)+3)*1000)}
+if (getAllUrlParams().res== "y") {res=true; cor_answer=0;wr_answer=0;}
+if (getAllUrlParams().noedit== "y") {$('#settings').hide();}
+
+}
+function getCode()
+{ str=(cor_answer+10).toString(16) +"js"+ (wr_answer+10).toString(16);
+
+return str;
+}
+function getTextfromCode(str)
+{
+splts=str.split("js")
+return "cor="+Number(parseInt(splts[0], 16)-10).toString()+"wr="+Number(parseInt(splts[1], 16)-10).toString()
+
+}
+
+function initByProps()
+{
+
+
+}
+
+$(document).ready(function() {
+		setPropByUrl();	
+	 $('#inputotvet').change(function() {;$('#divotvet').toggle()});
+	 $('#gen,#gen2').click(function() {$('#setdiv1,#setdiv2,#setdiv3,#setdiv4').toggle(); if( $('#gen,#gen2').text().indexOf('прята')!=-1) { $('#divgen').css("display","inline-block"); $('#gen,#gen2').text("Показать настройки");} else { $('#divgen').css("display","block"); $('#gen,#gen2').text("Спрятать настройки");} });
+	 $('#zplus').change(function() {if(znak.indexOf('+')==-1) {znak.push('+'); } else { znak.splice(znak.indexOf('+'),1)} });
+	 $('#zminus').change(function() {if(znak.indexOf('-')==-1) {znak.push('-'); } else { znak.splice(znak.indexOf('-'),1)} });
+	 $('#zumn').change(function() {if(znak.indexOf('×')==-1) {znak.push('×'); } else { znak.splice(znak.indexOf('×'),1)} });
+	 $('#zdelit').change(function() {if(znak.indexOf('÷')==-1) {znak.push('÷'); } else { znak.splice(znak.indexOf('÷'),1)} });
+	 $('#speed').change(function() {clearInterval(interval_id); interval_id=setInterval('engine()',Number($('#speed').val())*1000); });
+	 $('input:radio[name=ch]').change(function() {
+        if (this.value == 'sotni') {
+            if (Number($('#max1').val())<100 &&	Number($('#min1').val())>-100 ) { alert ("Некорретеное значение для числа 1"); $('input:radio[name=ch][value=lubie]').prop("checked", true);}
+			if (Number($('#max2').val())<100 && Number($('#min2').val())>-100 ) { alert ("Некорретеное значение для числа 2"); $('input:radio[name=ch][value=lubie]').prop("checked", true);}
+
+        }
+        else { if (this.value == 'desyatki') {
+            if (Number($('#max1').val())<10 && Number($('#min1').val())>-10 ) { alert ("Некорретеное значение для числа 1"); $('input:radio[name=ch][value=lubie]').prop("checked", true);}
+			if (Number($('#max2').val())<10 && Number($('#min2').val())>-10 ) { alert ("Некорретеное значение для числа 2"); $('input:radio[name=ch][value=lubie]').prop("checked", true);}
+			
+    }}});
+	
+	 $('#divotvet').change(function() {if ($('#inputotvet').prop('checked')) {
+if (ot== Number($('#numotvet').val())) {$('#proverka').text("Верно"); $('#proverka').animate({opacity:'0.99'},1000).animate({opacity:'0.0'},1); cor_answer++;} 
+	else {$('#proverka').text("Неверно. Ответ: "+ot.toString(10)); $('#proverka').animate({opacity:'0.99'},1000).animate({opacity:'0.0'},1); wr_answer++;}
+}
+proverka=true;});	 
+	 
+	 
+	 engine();
+	 interval_id=setInterval('engine()',Number($('#speed').val())*1000);
+	 
+   $("body").keypress(function(e) {
+          if (e.which == 32) {
+		 
+		  if (interval_id!=-1) { clearInterval(interval_id); interval_id=-1}
+		   else {interval_id=setInterval('engine()',Number($('#speed').val())*1000); }
+          }
+     });
+	 
+	 $("body").keydown(function(e) {
+          if (e.which == 39) {
+			 	 
+		  engine();
+		  
+          }
+     });
+	 
+	 $("body").keydown(function(e) {
+          if (e.which == 37) {
+			
+		  $('#primer').text(old_example);
+		  
+          }
+     });
+	 
+
+	 
+	
+});
+
+</script>
+<style type="text/css">
+
+html, body {
+	background-color: #FFFFFF;
+	border: 0;
+	margin: 0;
+	padding: 0;	
+	color:#fff;
+	font-family:Calibri;
+}
+
+.clr {
+border: 0;
+	margin: 0;
+	padding: 0;
+
+}
+#settings {
+  background: #3281FF;
+  color: #fff;
+  text-align: center;
+  display: block;
+  vertical-align: top;
+}
+#settings h2{
+	
+	font-size:30px;
+	display:inline-block;
+	
+	padding:0;
+	
+}
+#settings input,#settings button{
+	display:inline-block;
+	vertical-align:middle;
+}
+#settings input{
+	
+	text-align:center;
+	margin-top:5px;
+	margin-bottom:5px;
+	border-radius:5px;
+	width:30px;height:30px;
+	font-size:18px;
+}
+#numotvet{
+	
+	border: 1px solid #cccccc;
+	border-radius: 3px; 
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px; 
+	background: #ffffff !important; 
+	outline: none; 
+
+	color: #cccccc;
+ 
+	font-weight: bold;
+	width:220px;
+	height:50px;
+	font-size:24px;
+}
+#settings .widthinput::-webkit-outer-spin-button,
+#settings .widthinput::-webkit-inner-spin-button,
+#settings .swidthinput::-webkit-outer-spin-button,
+#settings .swidthinput::-webkit-inner-spin-button,
+#numotvet::-webkit-outer-spin-button,
+#numotvet::-webkit-inner-spin-button {
+ 
+ -webkit-appearance: none;
+ margin: 0; 
+}
+
+#settings label{
+	
+	text-align:center;
+	vertical-align:middle;
+	font-size:24px;
+}
+
+#settings .btext{
+	
+	font-size:32px;
+}
+
+
+
+#settings .widthinput{
+	
+	width:67px; height:25px;
+}
+
+#settings .swidthinput{
+	
+	width:60px; height:25px;
+}
+
+#settings div{
+	margin:0 30px 0 30px;
+	display:inline-block;
+	text-align:left;
+
+}
+#divgen {
+    height: 60px;
+}
+
+
+a.knopka {
+   width: 400px;
+   padding: 10px 20px;
+   border-radius: 8px;
+   background: #fff;
+   margin-bottom: 10px;
+   color: #3281FF;
+   text-decoration: none;
+}
+a.knopka:hover {
+	cursor: pointer;
+}
+
+#btn {
+	display:none!important; 
+}
+
+#workGround {
+	color:#000;
+	font-size: 80pt;
+	font-weight: bold;
+	margin-top:200px;
+}
+#divotvet {
+	margin:50px;
+} 
+
+#workGround div {
+	text-align: center;
+}
+
+#workGround div {
+	text-align: center;
+}
+
+@media (max-width: 800px) {
+
+#settings input{
+	margin-top:3px;
+	margin-bottom:3px;
+	border-radius:3px;
+	width:24px;height:24x;
+	font-size:16px;
+}
+
+#numotvet{
+	
+	border-radius:3px;
+	width:160px;height:40px;
+	font-size:22px;
+}
+
+#settings label{
+	font-size:22px;
+}
+
+#settings div{
+	margin:0 18px 5px 18px;
+}
+
+#settings .widthinput{
+	width:43px; height:22px;
+}
+
+#settings .swidthinput{
+	width:40px; height:22px;
+}
+
+#settings .btext{
+	font-size:28px;
+}
+
+#h2settings {
+	display:none!important; 
+}
+#btn {
+	display:block!important; 
+	
+}
+
+#settings {
+	font-size:17px;
+	padding:8px 0 ;
+}
+a.knopka {
+	font-size: 111%;
+	padding: .5em 1.1em;
+	/* отступ от текста */
+}
+#workGround {
+	font-size: 60pt;
+	margin-top:60px;
+} 	
+#divotvet {
+	margin:30px;
+} 
+}
+
+@media (max-width: 500px) {
+
+#settings input{
+	margin-top:2px;
+	margin-bottom:2px;
+	border-radius:2px;
+	width:18px;height:18x;
+	font-size:14px;
+}
+
+#settings label{
+	font-size:18px;
+}
+
+#settings div{
+	margin:0 10px 5px 10px;
+}
+
+#settings .widthinput{
+	width:33px; height:16px;
+}
+
+#settings .swidthinput{
+	width:30px; height:16px;
+}
+
+#settings .btext{
+	font-size:24px;
+}
+
+#h2settings {
+	display:none!important; 
+}
+
+#numotvet{
+	
+	border-radius:3px;
+	width:160px;height:30px;
+	font-size:18px;
+}
+
+#btn {
+	display:block!important; 
+}
+
+#settings {
+	font-size:14px;
+	padding:6px 0 ;
+}
+a.knopka {
+font-size: 90%;
+ 
+ 
+}
+#workGround {
+	font-size: 30pt;
+	margin-top:40px;
+} 
+#divotvet {
+	margin:20px;
+} 
+}
+
+</style>
+</head><body>
+
+<div id="settings">
+
+<div id="h2settings"><h2>Быстрый счёт <br></h2> <div id="divgen" style="display:block; margin: 0;"><a class="knopka" id="gen">Спрятать настройки</a> </div></div>
+
+
+
+<div id="setdiv1">
+<label>Число 1 от <input class="widthinput" id="min1" value="1" size="5" maxlength="5" type="number"> до <input class="widthinput" id="max1" value="10" size="4" maxlength="4" type="number"> </label>
+<br><label>Число 2 от <input class="widthinput" id="min2" value="1" size="5" maxlength="5" type="number"> до <input class="widthinput" id="max2" value="10" size="4" maxlength="4" type="number"> </label>
+<!--<br><label>Результат от <input class="swidthinput" id="minr" size="5" maxlength="5" type="number"> до <input class="swidthinput" id="maxr" size="4" maxlength="4" type="number"> </label> -->
+<br><label>Через 10 <input type="radio" name="chrs" value="ch10"> 100 <input type="radio" name="chrs" value="ch100"> Выкл<input type="radio" name="chrs" value="off" checked=""></label> 
+
+</div>
+
+<div id="setdiv2">
+<label class="btext">Знак: </label>
+<br><label class="btext">+<input type="checkbox" id="zplus" checked=""> - <input type="checkbox" id="zminus"></label>
+<br><label class="btext">×<input type="checkbox" id="zumn">÷ <input type="checkbox" id="zdelit"></label>
+</div>
+
+<div id="setdiv3">
+<label class="btext">Числа: </label>
+<br><label>Только сотни<input type="radio" name="ch" value="sotni"> Любыe<input type="radio" name="ch" value="lubie" checked=""></label>
+<br><label>Только десятки<input type="radio" name="ch" value="desyatki"> </label>
+</div>
+
+<div id="setdiv4">
+
+<label>Менять пример через <input class="swidthinput" id="speed" value="3" size="5" maxlength="5" type="number"> сек.</label>
+<br><label>Случайный порядок чисел:<input type="checkbox" id="mesto" checked=""> </label>
+<br><label>Вводить ответы:<input type="checkbox" id="inputotvet"> </label>
+</div>
+
+
+
+<div id="btn" style="margin:10px; text-align:center;"><a class="knopka" id="gen2">Спрятать настройки</a> </div>
+
+
+</div>
+
+
+
+
+<div id="workGround">
+
+<div id="primer">0 + 0</div>
+<div style="display:none" id="divotvet"><input id="numotvet" type="number" value="" placeholder="Ваш ответ.."></div>
+<div style="opacity:0" id="proverka"> Верно!</div>
+
+
+</div>
+</body></html>

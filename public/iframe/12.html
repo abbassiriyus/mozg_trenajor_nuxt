@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0044)https://shamil-ahmadullin.ru/upr/parak7.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+	    
+	<title>Найди пару. Картинки.| Упражнения скорочтения для детей.</title>
+	<meta property="og:type" content="website">
+    <meta property="og:title" content="Найди пару. Картинки.| Упражнения скорочтения для детей.">
+	<meta property="og:description" content="Упражнения по скорочтению и развитию памяти для детей. Школа скорочтения по методике Шамиля Ахмадуллина.">
+	<meta property="og:image" content="http://kazan.turboread.ru/img/upr.jpg">
+    <meta property="twitter:title" content="Найди пару. Картинки.| Упражнения скорочтения для детей.">
+    <meta name="description" content="Упражнения по скорочтению и развитию памяти для детей. Школа скорочтения по методике Шамиля Ахмадуллина..">
+    <meta property="twitter:description" content="Упражнения по скорочтению и развитию памяти для детей. Школа скорочтения по методике Шамиля Ахмадуллина.">
+    <meta property="og:site_name" content="Школа скорочтения для детей">
+    <link rel="image_src" href="http://kazan.turboread.ru/img/upr.jpg">
+    <meta property="twitter:image" content="http://kazan.turboread.ru/img/upr.jpg">
+	<meta name="author" content="Шамиль Ахмадуллин">
+    <meta name="keywords" content="упражнения скорочтение развития памяти уроки скорочтение игра задания онлайн упражения">
+<script src="./12_files/jquery.min.js"></script>
+<link rel="stylesheet" href="./12_files/style.css">
+<link rel="stylesheet" href="./12_files/tablestyle7.css">
+<script type="text/javascript">
+
+let clickCount = 0;
+let resTime;
+let trueClick = 0;
+let falseClick = 0;
+
+var n=48;
+var alpph = ['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg','img/6.jpg','img/7.jpg','img/8.jpg','img/9.jpg','img/10.jpg','img/11.jpg','img/12.jpg','img/13.jpg','img/14.jpg','img/15.jpg','img/16.jpg','img/17.jpg','img/18.jpg','img/19.jpg','img/20.jpg','img/21.jpg','img/22.jpg','img/23.jpg','img/24.jpg'];
+
+var table_cur_alpph = new Array(n);
+var is_alive = new Array(n+1);
+	var state = 0;
+	var g_current_id_num=-1;
+	var instance = new sh_match();
+	var count=0;
+	var main_sel;
+	
+	
+				function init_table_size(){
+			sz=Math.min(Math.round($('#match_table').width()/Math.round(Math.sqrt(n)+0.5)),($(window).height()-30)/Math.round(Math.sqrt(n)+0.5))
+		for(var i=1; i<=n; i++) 
+		$('#t'+i).css({'width':sz,'height': sz*0.9}	);
+		$('#centertd').css({'width':sz,'height': sz*0.9}	);
+		
+
+			
+	}
+	$(window).resize(init_table_size);
+	
+	function gen_is_alive(){
+			  
+			for(var i=0; i<=n; i++) 
+			is_alive[i] =0; 
+	}
+	function test_is_alive(){
+			  var s=0;
+			for(var i=1; i<=n; i++) 
+			s+=is_alive[i] ;
+			return s==n;
+	}
+				function init_table_size(){
+			sz=Math.round($('#match_table').width()/Math.round(Math.sqrt(n)+0.5))
+		for(var i=1; i<=n; i++) 
+		$('#t'+i).css({'width':sz,'height': sz*0.9}	);
+		$('#centertd').css({'width':sz,'height': sz*0.9}	);
+			for(i=1;i<=n;i++)
+			{
+			$('#t'+i).css({"background-image": "url("+alpph[getRandomInt(0,23)]+"	)", "background-size": $('#t'+i).width()+2});
+}
+			
+	}
+
+	
+	function swap(a, i1, i2) {
+				var t = a[i1]; a[i1] = a[i2]; a[i2] = t;
+			}
+		
+	function getRandomInt(min, max)
+		{
+		  return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+	function filltable()
+		{
+			
+		for(var i=0;i<50;i++)
+				swap(alpph,getRandomInt(0,23),getRandomInt(0,23))
+					
+				
+			for(var i=0;i<n/2;i++)
+				{
+				table_cur_alpph[i]=alpph[i];
+				table_cur_alpph[n/2+i]=alpph[i]
+				}
+				
+				
+			for(var i=0;i<n;i++)
+				swap(table_cur_alpph,getRandomInt(0,n-1),getRandomInt(0,n-1))
+				
+				
+			for(i=1;i<=n;i++)
+			{$('#t'+i).css({"background-image": "url('"+table_cur_alpph[i-1]+"')", "background-size": $('#t'+i).width()+2});
+
+			document.getElementById('t'+i).style.opacity=0.0;}
+				document.getElementById('match_table').style.opacity=1.0;
+				document.getElementById('gen').innerHTML='Начать заново!';
+		}
+		
+
+$(document).ready(function(){
+    $('.shulte_table').click(function() {
+		if (instance.started)  {
+		
+		current_id=$(this).attr('id')
+       
+		current_id_num=current_id.substr(1);
+		
+		if (is_alive[current_id_num]==1) return false;
+		
+		switch (state) {
+		  case 0:
+			state=1;
+			g_current_id_num=current_id_num;
+			$("#t"+current_id_num).animate({opacity:'1.0'},300);
+			break;
+
+		case 1:
+			$("#t"+current_id_num).animate({opacity:'1.0'},300);
+	
+			if(table_cur_alpph[current_id_num-1]!=table_cur_alpph[g_current_id_num-1]|| current_id_num==g_current_id_num ){
+				falseClick++; clickCount++;
+				$("#t"+g_current_id_num).animate({opacity:'0.0'},400);
+				$("#t"+current_id_num).animate({opacity:'0.0'},400);
+				} else { is_alive[current_id_num]=1; is_alive[g_current_id_num]=1;  trueClick++; clickCount++;
+				if ( test_is_alive()) { instance.stop_match();  return false;}
+				
+			}
+			g_current_id_num=-1;
+			state=0;
+			break;
+		
+		}
+
+		}
+    });
+});
+
+
+
+
+		function sh_match() {
+			var oldthis = this;
+			this.started = false;
+
+			this.staring = function() {
+				state = 0;
+				
+				this.started = true;		
+				
+				filltable();
+				
+				gen_is_alive();						
+				this.timer = setInterval(this.show_tick_time,100);
+				this.starttime = new Date();
+			}
+			this.show_tick_time = function() {document.getElementById('timer').innerHTML='Время: '+Math.floor((new Date() - oldthis.starttime)/100)/10+' сек.';}
+			
+			this.stop_match = function() {
+				clearInterval(oldthis.timer);
+				oldthis.started = false;
+				resTime = Math.floor((new Date() - oldthis.starttime)/100)/10;
+				document.getElementById('user_res_time').innerHTML=(new Date()).toLocaleString()+' &mdash; '+Math.floor((new Date() - oldthis.starttime)/100)/10+' сек.<br />'+document.getElementById('user_res_time').innerHTML;	
+				document.getElementById('gen').innerHTML='Начать упражнение!';
+				document.getElementById('match_table').style.opacity=0.2;
+
+				window.parent.postMessage({ 
+					status: true,
+					type: 'end',
+					info: {
+						clickCount: clickCount,
+						resTime: resTime,
+						trueClick: trueClick,
+						falseClick: falseClick 
+					}    
+				}, '*');
+			}
+			
+		}
+
+		
+		$(document).ready(function(){
+			document.getElementById('gen').onclick = function ttt() {
+
+				window.parent.postMessage({ 
+                    status: true,
+                    type: 'start'  
+                }, '*');
+				
+				if (instance.started) {
+					instance.staring()
+				}
+				else instance.staring();
+				
+			}
+			
+			
+
+		});
+
+	</script>
+
+</head><body onload="init_table_size()">
+
+
+	
+	
+		<div class="main">
+		<table id="match_table"><tbody>
+				<tr>
+
+<td class="shulte_table" id="t1" style="width: 107px; height: 96.3px; background-image: url(&quot;img/9.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t2" style="width: 107px; height: 96.3px; background-image: url(&quot;img/13.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t3" style="width: 107px; height: 96.3px; background-image: url(&quot;img/15.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t4" style="width: 107px; height: 96.3px; background-image: url(&quot;img/6.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t5" style="width: 107px; height: 96.3px; background-image: url(&quot;img/15.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t6" style="width: 107px; height: 96.3px; background-image: url(&quot;img/4.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t7" style="width: 107px; height: 96.3px; background-image: url(&quot;img/1.jpg&quot;); background-size: 105px;"></td></tr> <tr>
+<td class="shulte_table" id="t8" style="width: 107px; height: 96.3px; background-image: url(&quot;img/16.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t9" style="width: 107px; height: 96.3px; background-image: url(&quot;img/6.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t10" style="width: 107px; height: 96.3px; background-image: url(&quot;img/4.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t11" style="width: 107px; height: 96.3px; background-image: url(&quot;img/14.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t12" style="width: 107px; height: 96.3px; background-image: url(&quot;img/19.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t13" style="width: 107px; height: 96.3px; background-image: url(&quot;img/17.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t14" style="width: 107px; height: 96.3px; background-image: url(&quot;img/14.jpg&quot;); background-size: 105px;"></td></tr> <tr>
+<td class="shulte_table" id="t15" style="width: 107px; height: 96.3px; background-image: url(&quot;img/18.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t16" style="width: 107px; height: 96.3px; background-image: url(&quot;img/11.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t17" style="width: 107px; height: 96.3px; background-image: url(&quot;img/22.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t18" style="width: 107px; height: 96.3px; background-image: url(&quot;img/1.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t19" style="width: 107px; height: 96.3px; background-image: url(&quot;img/16.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t20" style="width: 107px; height: 96.3px; background-image: url(&quot;img/1.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t21" style="width: 107px; height: 96.3px; background-image: url(&quot;img/5.jpg&quot;); background-size: 105px;"></td></tr> <tr>
+<td class="shulte_table" id="t22" style="width: 107px; height: 96.3px; background-image: url(&quot;img/2.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t23" style="width: 107px; height: 96.3px; background-image: url(&quot;img/3.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t24" style="width: 107px; height: 96.3px; background-image: url(&quot;img/15.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="centertd" style="background-image: url(&quot;256256.jpg&quot;); background-repeat: no-repeat; background-position: center center; background-size: contain; width: 107px; height: 96.3px;"> </td>
+<td class="shulte_table" id="t25" style="width: 107px; height: 96.3px; background-image: url(&quot;img/20.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t26" style="width: 107px; height: 96.3px; background-image: url(&quot;img/24.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t27" style="width: 107px; height: 96.3px; background-image: url(&quot;img/11.jpg&quot;); background-size: 105px;"></td></tr> <tr>
+<td class="shulte_table" id="t28" style="width: 107px; height: 96.3px; background-image: url(&quot;img/6.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t29" style="width: 107px; height: 96.3px; background-image: url(&quot;img/18.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t30" style="width: 107px; height: 96.3px; background-image: url(&quot;img/2.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t31" style="width: 107px; height: 96.3px; background-image: url(&quot;img/10.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t32" style="width: 107px; height: 96.3px; background-image: url(&quot;img/21.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t33" style="width: 107px; height: 96.3px; background-image: url(&quot;img/22.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t34" style="width: 107px; height: 96.3px; background-image: url(&quot;img/19.jpg&quot;); background-size: 105px;"></td></tr> <tr>
+<td class="shulte_table" id="t35" style="width: 107px; height: 96.3px; background-image: url(&quot;img/18.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t36" style="width: 107px; height: 96.3px; background-image: url(&quot;img/18.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t37" style="width: 107px; height: 96.3px; background-image: url(&quot;img/4.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t38" style="width: 107px; height: 96.3px; background-image: url(&quot;img/4.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t39" style="width: 107px; height: 96.3px; background-image: url(&quot;img/9.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t40" style="width: 107px; height: 96.3px; background-image: url(&quot;img/12.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t41" style="width: 107px; height: 96.3px; background-image: url(&quot;img/3.jpg&quot;); background-size: 105px;"></td></tr> <tr>
+<td class="shulte_table" id="t42" style="width: 107px; height: 96.3px; background-image: url(&quot;img/10.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t43" style="width: 107px; height: 96.3px; background-image: url(&quot;img/5.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t44" style="width: 107px; height: 96.3px; background-image: url(&quot;img/23.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t45" style="width: 107px; height: 96.3px; background-image: url(&quot;img/15.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t46" style="width: 107px; height: 96.3px; background-image: url(&quot;img/23.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t47" style="width: 107px; height: 96.3px; background-image: url(&quot;img/23.jpg&quot;); background-size: 105px;"></td>
+<td class="shulte_table" id="t48" style="width: 107px; height: 96.3px; background-image: url(&quot;img/2.jpg&quot;); background-size: 105px;"></td>
+
+
+			</tr></tbody>
+		</table>
+		<button class="knopka" id="gen">Начать упражнение! </button>
+		<div id="timer" style="margin: 20px 0; font-size: 29px;text-align:center"></div>
+		
+	</div>
+	<h3 style="margin-top:35px; padding: 0;text-align:center;font-size: 29px;line-height:35px;font-weight:800;">Ваши результаты: </h3>
+	<div id="user_res_time" style="text-align:center;font-size: 29px;"></div>
+</body></html>

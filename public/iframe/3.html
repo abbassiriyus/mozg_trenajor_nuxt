@@ -1,0 +1,551 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0048)https://shamil-ahmadullin.ru/upr/izchtetxt2.html -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta http-equiv="Content-Type" content="text/html">
+ 
+ <script src="./3_files/jquery.min.js"></script>
+ <!-- <script src="//webasr.yandex.net/jsapi/v1/webspeechkit.js" type="text/javascript"></script> -->
+ <script type="text/javascript">
+ var interval_id = -1;
+ var oldtexnum = 0;
+ var notchgtext;
+
+ function getClientWidth() {
+ return document.compatMode == 'CSS1Compat' && !window.opera ? document.documentElement.clientWidth : document.body.clientWidth;
+ }
+
+ function getClientHeight() {
+ return document.compatMode == 'CSS1Compat' && !window.opera ? document.documentElement.clientHeight : document.body.clientHeight;
+ }
+
+ function hide(a) {
+ document.getElementById(a).style.display = "none"
+ }
+
+ function show(a) {
+ document.getElementById(a).style.display = "block"
+ }
+
+ function start() {
+ hide("instr");
+ show("tblock" + document.getElementById("textn").value.toString());
+ }
+
+ function stop() {
+ hide("tblock" + document.getElementById("textn").value.toString());
+ show("instruction");
+ }
+
+ function changeTextSize() {
+ //alert(Number(document.scrollHeight));
+ //alert(Number(document.offsetHeigh)); || window.innerHeight > document.body.clientHeight
+			$('#workGround').css("font-size", "48px");
+			console.log(window.innerHeight);
+			console.log(document.body.clientHeight)
+			console.log(window.innerWidth)
+			console.log(document.body.clientWidth)
+			
+ while (window.innerWidth > document.body.clientWidth ) {
+ $('#workGround').css("font-size", (parseInt($("#workGround").css('font-size')) - 1).toString() + "px	");
+ }
+			while (window.innerHeight < document.body.clientHeight	 ) {
+ $('#workGround').css("font-size", (parseInt($("#workGround").css('font-size')) - 1).toString() + "px	");
+ }
+			
+ }
+
+ function nextstepz() {
+ var currenttext = document.getElementById("text" + document.getElementById("textn").value.toString()).innerHTML;
+ //alert(currenttext);
+ var endSpanIndex = currenttext.indexOf('</span>');
+ var spaceIndex = currenttext.indexOf(' ', endSpanIndex);
+ var tempcurrenttext = currenttext.replace('</span>', "");
+ currenttext = tempcurrenttext.slice(0, spaceIndex - 6) + "</span>" + tempcurrenttext.slice(spaceIndex - 6);
+ document.getElementById("text" + document.getElementById("textn").value.toString()).innerHTML = currenttext;
+ $(".spn").css({
+ "color": "grey",
+ 'opacity': "0.3"
+ });
+ }
+
+ function nextstep() {
+ var currenttext = document.getElementById("text" + document.getElementById("textn").value.toString()).innerHTML;
+ //alert(currenttext);
+ var endSpanIndex = currenttext.indexOf('</span>');
+ var spaceIndex = currenttext.indexOf(' ', endSpanIndex);
+ var tempcurrenttext = currenttext.replace('</span>', "");
+ currenttext = tempcurrenttext.slice(0, spaceIndex - 6) + "</span>" + tempcurrenttext.slice(spaceIndex - 6);
+ document.getElementById("text" + document.getElementById("textn").value.toString()).innerHTML = currenttext;
+ $(".spn").css('opacity', '0.0');
+ }
+
+ function clean() {
+ if (oldtexnum != 0 && interval_id != -1) {
+ clearInterval(interval_id);
+ document.getElementById("text" + oldtexnum.toString()).innerHTML = notchgtext;
+ hide("tblock" + oldtexnum.toString());
+ }
+ oldtexnum = document.getElementById("textn").value;
+ notchgtext = document.getElementById("text" + document.getElementById("textn").value.toString()).innerHTML;
+ }
+ $(document).ready(function() {
+ $('#gen,#gen2').click(function() {
+ $('#setdiv1,#setdiv2,#setdiv3').toggle();
+ if ($('#gen,#gen2').text().indexOf('прята') != -1) {
+ $('#divgen').css("display", "inline-block");
+ $('#gen,#gen2').text("Показать настройки");
+ } else {
+ $('#divgen').css("display", "block");
+ $('#gen,#gen2').text("Спрятать настройки");
+ }
+ });
+ $('#selspeedn').on('change', function() {
+ $('#speed').val(this.value);
+ })
+ $('#textn').on('change', function() {
+ clean();
+ if (document.getElementById("textn").value == 0) {
+ interval_id = -1;
+ var oldtexnum = 0; 
+					document.getElementById("instr").style.display = "block"
+ return;
+ } 
+						
+ start();
+ changeTextSize();
+ if ($('input[name=typ]:checked').val() == "zakras") {
+ interval_id = setInterval('nextstepz()', Number($('#speed').val()) * 1000);
+ } else {
+ interval_id = setInterval('nextstep()', Number($('#speed').val()) * 1000);
+ }
+ })
+ // document.scrollHeight равен document.offsetHeight
+ //interval_id=setInterval('engine()',Number($('#speed').val())*1000);
+ //	 alert( $("#workGround").css('font-size'))
+ });
+ </script>
+
+<style type="text/css">
+	html,
+	body {
+	background-color: #FFFFFF;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	color: #fff;
+	font-family: Calibri;
+	}
+   
+	p {
+	-webkit-margin-before: 0.31em;
+	-webkit-margin-after: 0.31em;
+	}
+   
+	h3 {
+	-webkit-margin-before: 0.31em;
+	-webkit-margin-after: 0.31em;
+	}
+   
+	.clr {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	}
+   
+	#settings {
+	background: #3281FF;
+	color: #fff;
+   
+	font-size: 18px;
+	padding: 10px 0;
+	}
+   
+	#settings h2 {
+	font-size: 30px;
+	display: inline-block;
+	padding: 0;
+	}
+   
+	#settings input,
+	select,
+	#settings button {
+	display: inline-block;
+	vertical-align: middle;
+	}
+   
+	#settings input,
+	select {
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	width: 30px;
+	height: 30px;
+	font-size: 18px;
+	}
+   
+	#numotvet {
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px; 
+	-khtml-border-radius: 3px;
+	background: #ffffff !important; 
+	outline: none;
+	color: #cccccc; 
+	font-weight: bold;
+	height: 50px;
+	font-size: 24px;
+	}
+   
+	#settings .widthinput::-webkit-outer-spin-button,
+	#settings .widthinput::-webkit-inner-spin-button,
+	#settings .swidthinput::-webkit-outer-spin-button,
+	#settings .swidthinput::-webkit-inner-spin-button,
+	#numotvet::-webkit-outer-spin-button,
+	#numotvet::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+	}
+   
+	#settings label {
+	text-align: center;
+	vertical-align: middle;
+	font-size: 24px;
+	}
+   
+	#settings .btext {
+	font-size: 32px;
+	}
+   
+	#settings .widthinput {
+	width: 67px;
+	height: 25px;
+	}
+   
+	#settings .swidthinput {
+	width: 60px;
+	height: 25px;
+	}
+   
+	#settings div {
+	margin: 0 30px 0 30px;
+	display: inline-block;
+	text-align: left;
+	}
+   
+	a.knopka {
+	   width: 400px;
+	   padding: 20px;
+	   border-radius: 8px;
+	   background: #fff;
+	   margin-bottom: 10px;
+	   color: #3281FF;
+	   text-decoration: none;
+	}
+   
+	a.knopka:hover {
+		cursor: pointer;
+	}
+   
+	#btn {
+	display: none!important;
+	}
+   
+	#workGround {
+	color: #000;
+	font-size: 36pt;
+	}
+   
+	#workGround div {
+	text-align: left;
+	}
+   
+	.hd {
+	text-align: center;
+	}
+   
+	.mtext {
+	padding-left: 4%;
+	padding-right: 3%;
+	}
+   
+	@media (max-width: 800px) {
+	#settings input,
+	select {
+	margin-top: 3px;
+	margin-bottom: 3px;
+	border-radius: 3px;
+	width: 24px;
+	height: 24x;
+	font-size: 16px;
+	}
+	#numotvet {
+	border-radius: 3px;
+	width: 160px;
+	height: 40px;
+	font-size: 22px;
+	}
+	#settings label {
+	font-size: 22px;
+	}
+	#settings div {
+	margin: 0 18px 5px 18px;
+	}
+	#settings .widthinput {
+	width: 43px;
+	height: 22px;
+	}
+	#settings .swidthinput {
+	width: 40px;
+	height: 22px;
+	}
+	#settings .btext {
+	font-size: 28px;
+	}
+	#h2settings {
+	display: none!important;
+	}
+	#btn {
+	display: block!important;
+	}
+	#settings {
+	font-size: 17px;
+	padding: 8px 0;
+	}
+	a.knopka {
+	font-size: 111%;
+	padding: .5em 1.1em;
+	/* отступ от текста */
+	}
+	#workGround {
+	font-size: 30pt;
+	}
+	@media (max-width: 500px) {
+	#settings input,
+	select {
+	margin-top: 2px;
+	margin-bottom: 2px;
+	border-radius: 2px;
+	width: 16px;
+	height: 18px;
+	font-size: 14px;
+	}
+	#settings label {
+	font-size: 14px;
+	}
+	#settings div {
+	margin: 0 8px 4px 4px;
+	}
+	#settings .widthinput {
+	width: 33px;
+	height: 16px;
+	}
+	#settings .swidthinput {
+	width: 30px;
+	height: 16px;
+	}
+	#settings .btext {
+	font-size: 18px;
+	}
+	#h2settings {
+	display: none!important;
+	}
+	
+	#btn {
+	display: block!important;
+	}
+	#settings {
+	font-size: 14px;
+	padding: 6px 0;
+	}
+	a.knopka {
+	font-size: 90%;
+	}
+	#workGround {
+	font-size: 26pt;
+	}
+	}
+}
+</style>
+</head>
+
+<body>
+ <div id="settings">
+ <div id="h2settings">
+ <h2>Исчезающий текст <br></h2>
+ <div id="divgen" style="display:block; margin: 0;"><a href="https://shamil-ahmadullin.ru/upr/izchtetxt2.html#" class="knopka" id="gen">Спрятать настройки</a> </div>
+ </div>
+ <div id="setdiv1">
+ <label class="btext">Номер текста</label>
+ <br><br> <select name="seltext" id="textn" style=" width:100%">
+						<option value="0"> Выбрать текст: </option>
+						<option value="1"> Текст №1 </option>
+						<option value="2"> Текст №2 </option>
+						<option value="3"> Текст №3 </option>
+						<option value="4"> Текст №4 </option>
+						<option value="5"> Текст №5 </option>
+						<option value="6"> Текст №6 </option>
+						<option value="7"> Текст №7 </option>
+						<option value="8"> Текст №8 </option>
+						<option value="9"> Текст №9 </option>
+						<option value="10">Текст №10 </option>
+						<option value="11"> Текст №1(1) </option>
+						<option value="12"> Текст №1(2) </option>
+						<option value="13"> Текст №1(3) </option>
+						<option value="14"> Текст №2(1) </option>
+						<option value="15"> Текст №2(2) </option>
+						<option value="16"> Текст №2(3) </option>
+						<option value="17"> Текст №3(1) </option>
+						<option value="18"> Текст №3(2) </option>
+						<option value="19"> Текст №3(3) </option>
+ </select>
+ </div>
+ <div id="setdiv2">
+ <label class="btext">Исчезновение: </label>
+ <br> <label>Прозрачность<input type="radio" name="typ" value="pozr"></label>
+ <br><label>Закраска<input type="radio" name="typ" value="zakras" checked=""> </label>
+ </div>
+ <div id="setdiv3">
+ <label>Слово за <input class="swidthinput" id="speed" value="0.5" size="5" maxlength="4" type="number"> сек.</label>
+ <br><br> <select name="selspeed" id="selspeedn" style=" width:100%">
+	
+						<option value="0.5"> 0.5 сек. </option>
+						<option value="0.75"> 0.75 сек. </option>
+						<option value="1.5"> 1.5 сек. </option>
+						<option value="1"> 1 сек. </option>
+						<option value="2"> 2 сек. </option>
+						<option value="0.4"> 0.4 сек. </option>
+						<option value="0.3"> 0.3 сек. </option>
+						<option value="0.2"> 0.2 сек. </option>
+						<option value="0.1"> 0.1 сек. </option>
+						
+						
+						
+ </select>
+ </div>
+ <div id="btn" style="margin:10px; text-align:center;"><a class="knopka" id="gen2">Спрятать настройки</a> </div>
+ </div>
+ <div id="workGround">
+ <div id="instr" style="padding-top:100px; text-align:center; ">Настройте скорость и способ исчезновения.</div>
+ <div id="tblock1" style=" display: none; ">
+ <h3 class="hd">Ёжик.</h3>
+ <p id="text1" class="mtext"> <span class="spn"></span>В лесу я видел ёжика. Он смешно ходил между кочек, расталкивая стебельки травинок. Он дёргал носиком, обнюхивал листочки. Ёжик что-то искал. Мишка хотел его погладить. Ёжик свернулся в круглый колючий шарик. Серёжка заявил, что возьмёт его в группу. Он закатил шарик в свою панаму. А Марина Викторовна велела ёжика выкатить из панамы. Пусть живёт в лесу. Ежу здесь хорошо. Он —дома.
+ </p>
+ </div>
+ <div id="tblock2" style=" display: none; ">
+ <h3 class="hd">Друг.</h3>
+ <p id="text2" class="mtext"> <span class="spn"></span>Был у Светланы зайчик. Не живой, не настоящий, но очень красивый. Сам серый, ушки в середине розовые. Хвостик белый, пушистый, похож на снежинку. Своего зайчика Светлана любила. Кормила его супом, спать с собой клала и другим детям давала поиграть. Но вот износился зайчик. Сначала хвостик у него оторвался, потом ушко. А шёрстка сбилась и вытерлась. Увидал зайчика Юра и говорит:
+ <br>—Какой некрасивый заяц!
+ <br>Подошла Галя и спрашивает:
+ <br>—Зачем тебе такой старый, такой бесхвостый?
+ <br>Витя советует:
+ <br>—Выкинь его!
+ <br>А Наташа, старшая сестра Светы, взяла иголку с ниткой и пришила заячий хвостик, потом ухо. Почистила его и сказала:
+ <br>—Кто старых друзей в беде бросает, тот и новых не заведёт.
+ </p>
+ </div>
+ <div id="tblock3" style=" display: none; ">
+ <h3 class="hd">Дождинки.</h3>
+ <p id="text3" class="mtext"> <span class="spn"></span>Дождь старательно подвешивает на каждую сосновую иголку прозрачную каплю-сережку. Они долго висят, украшая сосны. Дождь перестал. Все стихло, как бы замерло. Солнечный луч блеснул, на миг озарил капли. Они засветились всеми цветами радуги. Но вот слегка подул ветерок. Посыпались с сосновых иголок, словно слезинки, радужные сережки. Еще порыв. Другой. Сильнее закачались верхние ветки, обильно посыпались капли. Избавились от тяжести зеленые сосновые иглы. Ни одной сережки. Сосны обмылись, посвежели, встрепенулись и радостно зашумели. </p>
+ </div>
+ <div id="tblock4" style=" display: none; ">
+ <h3 class="hd">Муравьиная тропа.</h3>
+ <p id="text4" class="mtext"> <span class="spn"></span>Был у муравьев мостик через ручей - дерево упало, они по нему и бегали. Люди ходили тут и каждый день давили муравьев. Однако насекомых не остановишь, если они выбрали себе тропу. Что придумать? Кто-то сделал очень просто: взял да и положил рядом другое бревно. Муравьи ползают по своему мостику, а человек делает свои шаги по новому бревну. Муравьи, конечно, не узнали, кто о них позаботился. Но точно можно сказать: сделал это хороший человек. </p></div>
+ <div id="tblock5" style=" display: none; ">
+ <h3 class="hd">Лебеди.</h3>
+ <p id="text5" class="mtext"> <span class="spn"></span>Однажды я увидел на озере двух белых птиц. Это были лебеди-кликуны. Моя бабушка сказала, что они плавают здесь уже больше двух недель. Значит, им понравилось это место. Они хотят здесь поселиться. Я сделал для птиц плавающую кормушку. Насыпал в нее зерно, моченый хлеб. Лебеди долго не решались приблизиться к кормушке. Но однажды один из них подплыл и взял хлеб. Постепенно лебеди привыкли ко мне. Они брали угощение прямо из рук. </p>
+ </div>
+ <div id="tblock6" style=" display: none; ">
+ <h3 class="hd">Вот какие!</h3>
+ <p id="text6" class="mtext"> <span class="spn"></span>Выпали из гнезда сорочата. Уж как крутились над ними старые сороки, уж как кричали, но посадить сорочат в гнездо так и не смогли. Тогда мы их поймали и принесли домой. Сперва , сорочата нас боялись, но уже к вечеру обжились и забыли своих родителей. Словно их и не было!
+ <br>Кормили мы их червяками, кузнечиками, булкой. Старые сороки рядом крутились, в окна заглядывали, стучали носом в стекло. Но сорочата не в окна смотрели, а в дверь: ждали, когда мы в дверь с едой войдём. И тогда так разевали красные рты, что чуть пополам не разрывались! Бились в истерике и орали. Жутко были прожорливые.
+ </p>
+ </div>
+ <div id="tblock7" style=" display: none; ">
+ <h3 class="hd">Переполох в игрушечном городе.</h3>
+ <p id="text7" class="mtext"> <span class="spn"></span>По улице игрушечного города мчался Тигр. Игрушки испугались и стали прятаться кто куда. Курица три раза падала в обморок, пока собрала и спрятала всех цыплят. Только куклы, Ляля Голубая и Ляля Розовая, не испугались. Как сидели на скамеечке, так и сидят. Ванька - Встанька от удивления забыл спрятаться. Не думал он, что Ляли такие храбрые. Тигра не испугались! На всякий случай подошел ближе к куклам: тигр все-таки. Вдруг понадобиться защита. Тигр на бегу задел его хвостом. Ванька -Встанька упасть не упал, но долго качался из стороны в сторону.Тигр подскочил к скамейке, где смеялись Ляли. И как зарычит:
+ <br>-Ррр! Отдавайте мой бант! Зачем бррали без спрросу?
+ <br>-Забирай свой бант, он мне не нужен вовсе ! –сказала Ляля Розовая, доставая из кармашка зеленую ленточку. –Еще хвастался: я, мол самый добрый Тигр на свете. Жадина!
+ <br>-Рразве мне жалко? –сказал Тигр. –Да только когда я без банта, все меня боятся, никто со мной не играет. Ррр!
+ <br>Тигр повязал бант себе на шею и не спеша пошел по улице. Потихонечку отовсюду начали высовываться игрушки.
+ </p>
+ </div>
+ <div id="tblock8" style=" display: none; ">
+ <h3 class="hd">Как снегирь деревце посадил.</h3>
+ <p id="text8" class="mtext"> <span class="spn"></span>Жил-был зимой в лесу розовогрудый снегирь. Летал-летал он по своим делам и проголодался. Сел снегирь на высокую рябину и стал мороженные ягоды клевать. А ягоды крупные, спелые, сладкие. Так в клюв и просятся! Наелся снегирь от души, а улетать с рябины не хочется: очень уж ягоды на ней хороши. Думает: «Дай, хоть одну с собой возьму —про запас». Летит, ягоду в клюве несёт. А навстречу ему —ястребок. Испугался снегирь, кинулся в сторону, крикнул: « Помогите!» - и уронил ягодку в снег.
+ <br>Пришла весна. Растаял снег. Пригрело ягодку солнышко. Пустила она корешок, а потом листочек. А потом и деревце выросло. Сидит на нём снегирь и сам себя хвалит: «Теперь в лесу зимой вкусных ягод ещё больше будет!»
+ </p>
+ </div>
+ <div id="tblock9" style=" display: none; ">
+ <h3 class="hd">Журавль.</h3>
+ <p id="text9" class="mtext"> <span class="spn"></span>Радостно слышать весною крики журавлей в небе. Прилет журавлей обещает близкое тепло. Любит этих птиц наш народ. Много сказок и песен сложил он о журавлях. <br>Журавль очень высок на ногах. У него большие крылья и длинные перья. Клюв журавля крепкий и острый. Гнездо журавль вьет прямо в ямке на поле. На сухую траву журавлиха кладет два крупных яйца. Молодых журавлят родители уводят в кусты или в камыши.
+ <br>Раненый журавль бросается на спину и бьет собаку ногами и клювом. Один охотник потерял глаз, когда хотел схватить раненого журавля. Теперь охота на журавлей в нашей стране запрещена.
+ </p>
+ </div>
+ <div id="tblock10" style=" display: none; ">
+ <h3 class="hd">Старый пёс.</h3>
+ <p id="text10" class="mtext"> <span class="spn"></span>Был у человека верный друг –Пёс. Много лет сторожил он хозяйство человека. Шли годы, Пёс постарел, стал плохо видеть. Однажды в ясный летний день он не узнал своего хозяина. Когда хозяин возвращался с поля, он выбежал из своей будки, залаял, как на чужого. Хозяин удивился. Спросил:
+ <br>-Значит, ты уже не узнаёшь меня? Пёс виновато вилял хвостом. Он ткнулся носом в ногу хозяина и нежно заскулил. Ему захотелось сказать:
+ <br>-Прости меня. Я сам не знаю, как это получилось, что я не узнал тебя. Через несколько дней человек принёс откуда-то маленького щенка. Он построил рядом с будкой старого Пса ещё одну, маленькую будку и сказал щенку:
+ <br>-Живи здесь.
+ <br>Старый Пёс спросил у человека:
+ <br>-Зачем тебе ещё один пёс?
+ <br>-Чтобы тебе одному не было скучно, - сказал человек и ласково потрепал старого Пса по спине. Потом человек повернулся, тихо вздохнул и ушёл. А на траве кувыркался –играл щенок.
+ </p>
+ </div>
+  <div id="tblock11" style=" display: none; ">
+ <p id="text11" class="mtext"> <span class="spn"></span>Пришла весна, потекла вода. Дети взяли деревянные дощечки, сделали лодочку, пустили лодочку по воде. Лодочка быстро плыла, а дети бежали за нею, громко кричали и ничего впереди себя не видали, и в лужу упали. (по Л. Толстому)
+ </p>
+ </div>
+  <div id="tblock12" style=" display: none; ">
+ <p id="text12" class="mtext"> <span class="spn"></span>Галку и ворону различить совсем не трудно. Галка вдвое меньше вороны и вся черная, только вокруг шеи серые перышки, будто она серым платочком повязана. А у вороны наоборот: все туловище серое, черные только голова, шея, крылья да хвост. (Г. Скребицкий) </p>
+ </div>
+  <div id="tblock13" style=" display: none; ">
+ <p id="text13" class="mtext"> <span class="spn"></span>В солнечный день осенью на опушке елового леса собрались молодые разноцветные осинки, густо одна к другой, как будто им там, в еловом лесу, стало холодно. Они вышли погреться на опушку, как у нас в деревнях люди выходят на солнышко и сидят на завалинках. (М. Пришвин)</p>
+ </div>
+  <div id="tblock14" style=" display: none; ">
+ <p id="text14" class="mtext"> <span class="spn"></span>Запомни, если какой-то предмет легче воды – он всплывает. Точно так же, предмет взлетает, если он легче воздуха! Всем известно, что горячий воздух легче холодного, поэтому, чтобы воздушный шар полетел, его нагревают специальной газовой горелкой. И чем больше шар, тем больше людей он может поднять в воздух.<br> 
+Первыми в истории полет на воздушном шаре совершили животные и только после их удачного возвращения этим средством передвижения стали пользоваться люди. Ещё по-другому воздушные шары называют монгольфьерами.
+</p>
+ </div>
+  <div id="tblock15" style=" display: none; ">
+ <p id="text15" class="mtext"> <span class="spn"></span>Звезды кажутся нам маленькими. Потому что они находятся от нас очень далеко. Любые объекты, располагающиеся от нас на большом расстоянии всегда кажутся меньше.<br> 
+Когда мы смотрим на ночное небо, мы видим не сами звезды, а свет, который от них исходит. Звезда – это небесное тело, состоящее из газообразных веществ. Она излучает свет и тепло. Именно этот свет мы и видим с земли.<br> 
+Самые маленькие звезды примерно в 10 раз меньше солнца, а самые большие – в 150 раз больше солнца. Чтобы долететь до ближайшей звезды нужно потратить несколько тысяч лет. Про космические полеты и путешествия к звездам режиссеры снимают фантастическое кино, но в реальной жизни люди еще не изобрели такие космические сверхбыстрые корабли.</p>
+ </div>
+  <div id="tblock16" style=" display: none; ">
+ <p id="text16" class="mtext"> <span class="spn"></span>В саду на дорожке прыгали молодые воробушки. А старый воробей уселся высоко на ветке дерева и зорко глядит, не покажется ли где хищная птица.
+ Летит по задворкам ястреб-разбойник. Он лютый враг мелкой пташки. Летит ястреб тихо, без шума. Но старый воробей заметил злодея и следит за ним. Ястреб ближе и ближе.<br> 
+Зачирикал громко и тревожно воробей, и все воробьята разом скрылись в кусты. Все смолкло. Только воробей-часовой сидит на ветке. Не шевелится, глаз с ястреба не спускает.<br> 
+Заметил ястреб старого воробья, взмахнул крыльями, расправил когти и стрелой спустился вниз.
+А воробей камнем упал в кусты. Ястреб ни с чем и остался. Озирается он вокруг. Зло взяло хищника. Огнем горят его желтые глаза. Встрепенулся разбойник и полетел дальше. Опять уселся воробей на той же ветке. Сидит и весело чирикает. С шумом высыпали из кустов воробьята, прыгают по дорожке.
+</p>
+ </div>
+  <div id="tblock17" style=" display: none; ">
+ <h3 class="hd">Старый пёс.</h3>
+ <p id="text17" class="mtext"> <span class="spn"></span>Ночью пруд покрылся тоненьким, хрупким ледком. На заре лед заиграл радужным блеском. Он становился то алым, то розовым, то фиолетовым. Вот он загорелся, как огненное море. Показалось солнышко из-за горизонта, и ледок стал багровым.<br> 
+На вербе сидела Синичка. Она любовалась игрой утренней зари на льду. Синичка пела свою нехитрую песенку о хрупкой, нежной, тонкой красоте. Её песенка была радостная и немного грустная: вот поднимется солнышко, растопит лед, исчезнет всё очарование. 
+<br>– Я маленькая, мои коготки мягкие, как пушинки, но и мне нельзя садиться на это волшебное зеркало, – рассказывала Синичка миру. – Да, это зеркало, в котором отражается весь мир. Смотрите на эту красоту!<br> 
+А на берегу в это время стоял Вол. Он слышал песню Синички и умилялся. Ему захотелось ближе посмотреть на красоту, о которой пела Синичка. Он подошёл к самой кромке льда, ледок затрещал, волшебное зеркало рассыпалось, со дна поднялась муть. 
+<br>– Где же эта красота? – промычал Вол и, напившись воды, побрёл прочь. Никакой красоты Вол рассмотреть не смог.(В. Сухомлинский)
+ </p>
+ </div>
+  <div id="tblock18" style=" display: none; ">
+ <p id="text18" class="mtext"> <span class="spn"></span>Отец Волк выждал, чтобы его волчата научились бегать, наконец, в день собрания стаи, взял с собой их, Маугли, Волчицу Мать и отправился к Скале Совета; так называлась вершина холма, вся покрытая большими валунами и камнями, посреди которых могло спрятаться около сотни волков. Акела, большой серый волк-одиночка, благодаря своей силе и хитрости вожак стаи, во всю свою длину растянулся на камне, ниже сидели сорок или больше волков, всех оттенков шерсти – начиная с ветеранов с окраской барсука, которые могли одни вступать в борьбу с диким буйволом, до юных чёрных трехгодовиков, воображавших, будто такая борьба им по силам. Вот уже целый год Одинокий Волк водил стаю. В дни своей юности Акела два раза попадался в капканы; раз его избили и бросили, считая мёртвым, – поэтому он знал обычаи и уловки людей. Мало было разговоров. Волчата возились и кувыркались в центре кольца, которое составляли их матери и отцы; время от времени один из старших волков спокойно подходил к какому-нибудь волчонку, внимательно осматривал его и, бесшумно ступая, возвращался на прежнее место. Иногда та или другая волчица выталкивала носом своего детёныша в полосу лунного света, желая, чтобы его непременно заметили. Акела же со своей скалы восклицал:<br> 
+– Вы знаете Закон, вы знаете Закон! Хорошенько смотрите, будьте внимательны и мудры, волки!(Р. Киплинг)
+</p>
+ </div>
+  <div id="tblock19" style=" display: none; ">
+ <h3 class="hd">Старый пёс.</h3>
+ <p id="text19" class="mtext"> <span class="spn"></span>Перенесёмся в будущее. Межпланетный корабль садится на космодроме Марсианска, и мы ступаем на Марс. Такси – зелёная с чёрными шашечками по бокам ракета, предназначенная для местных сообщений, – за несколько минут доставляет нас к городу.<br> 
+Здесь всё необычно: дома, улицы, транспорт. Жилые дома по форме напоминают срезанный шар. Они совершенно прозрачны. Общественные здания расположены буквой П. Внутри огромная площадь, способная вместить тысячи человек. Город утопает в зелени. Деревья напоминают наши кедры.<br>
+На другом конце города раскинулось озеро, за которым виднеются корпуса заводов. Марсианск – крупнейший в Солнечной системе центр по добыче ценнейших минералов, запасы которых на Земле ничтожно малы.<br>
+Нас ждет интересное и светлое будущее!(По Н. Золотницкому.)
+</p>
+ </div>
+ </div></body></html>
