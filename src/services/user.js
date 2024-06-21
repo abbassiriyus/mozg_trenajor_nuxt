@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = 'http://infohic3.beget.tech/';
+const url = 'https://lk.shamil-ahmadullin.ru/';
 //const url = 'http://brain-server/';
 
 const userRegistration = (email, username, password) => {

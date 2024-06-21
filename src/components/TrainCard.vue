@@ -35,12 +35,12 @@
                 <span class="close" v-on:click="closeShare(id)">&times;</span>
                 <div class="ad">
                     <div class="sharebtn">
-                        <share-network class="sharebtn__" network="vk" title="Заголовок" :url="'http://infohic3.beget.tech/game?id=' + id">
+                        <share-network class="sharebtn__" network="vk" title="Заголовок" :url="'https://lk.shamil-ahmadullin.ru/game?id=' + id">
                             <button style="color: #fff;">Поделиться в VK</button>
                         </share-network>
                     </div>
                     <div class="sharebtn">
-                        <share-network class="sharebtn__" network="facebook" title="Заголовок" :url="'http://infohic3.beget.tech/game?id=' + id">
+                        <share-network class="sharebtn__" network="facebook" title="Заголовок" :url="'https://lk.shamil-ahmadullin.ru/game?id=' + id">
                             <button style="color: #fff;">Поделиться в Facebook</button>
                         </share-network>
                     </div>

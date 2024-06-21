@@ -64,17 +64,17 @@
                             <p>ПРИГЛАСИТЕ ДРУЗЕЙ НА ТРЕНИРОВКУ:</p>
                             <div class="window__link-list">
                             <a class="window__link" href="">
-                                <share-network class="sharebtn__" network="facebook" title="ЗАСТАВЬ СВОЙ МОЗГ РАБОТАТЬ БЫСТРЕЕ!" :url="'http://infohic3.beget.tech/game?id=' + this.$route.query.id">
+                                <share-network class="sharebtn__" network="facebook" title="ЗАСТАВЬ СВОЙ МОЗГ РАБОТАТЬ БЫСТРЕЕ!" :url="'https://lk.shamil-ahmadullin.ru/game?id=' + this.$route.query.id">
                                     <img src="@/assets/svg/facebook.svg" alt="">
                                 </share-network>
                             </a>
                             <a class="window__link" href="">
-                                <share-network class="sharebtn__" network="vk" title="ЗАСТАВЬ СВОЙ МОЗГ РАБОТАТЬ БЫСТРЕЕ!" :url="'http://infohic3.beget.tech/game?id=' + this.$route.query.id">
+                                <share-network class="sharebtn__" network="vk" title="ЗАСТАВЬ СВОЙ МОЗГ РАБОТАТЬ БЫСТРЕЕ!" :url="'https://lk.shamil-ahmadullin.ru/game?id=' + this.$route.query.id">
                                     <img src="@/assets/svg/VK.svg" alt="">
                                 </share-network>
                             </a>
                             <a class="window__link" href="">
-                                <share-network class="sharebtn__" network="telegram" title="ЗАСТАВЬ СВОЙ МОЗГ РАБОТАТЬ БЫСТРЕЕ!" :url="'http://infohic3.beget.tech/game?id=' + this.$route.query.id">
+                                <share-network class="sharebtn__" network="telegram" title="ЗАСТАВЬ СВОЙ МОЗГ РАБОТАТЬ БЫСТРЕЕ!" :url="'https://lk.shamil-ahmadullin.ru/game?id=' + this.$route.query.id">
                                     <img src="@/assets/svg/Telegram.svg" alt="">
                                 </share-network>
                             </a>
