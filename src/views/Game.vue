@@ -50,14 +50,16 @@
                                     </div>
                                 </div>
                             </div>
+<h2  class="window__pravila-game" >
+{{this.gameInfo.information}}
+</h2>
+
                             <button class="window__start-button" @click="loadComponent">
                                 <p>Начать тренировку</p>
                             </button>
-                            <button class="window__link-rules" @click="OpenRules()">Правила игры</button>
-                            <div class="modal__rules" v-if="IsRulesOpen">
-                                <p class="modal__rules-text">{{this.gameInfo.information}}</p>
-                                <button class="modal__rules-close" @click="OpenRules()">×</button>
-                            </div>
+
+
+                           
                         </div>
 
                         <div class="window__footer" v-if="!dynamicComponent">
@@ -464,6 +466,20 @@ line-height: 150%; /* 27px */
     border-radius: 8px;
     background: #3281FF;
     margin-bottom: 10px;
+}
+.window__pravila-game{
+background-color: #fff;
+    border-radius: 20px;
+    font-size: 14px !important;
+    color:grey;
+    width: 60%;
+  
+    max-width: 1000px;
+text-align:justify;
+    margin-bottom:40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .window__start-button:hover{
     cursor: pointer;

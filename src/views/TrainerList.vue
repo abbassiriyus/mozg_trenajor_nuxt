@@ -62,7 +62,10 @@ export default {
         const auth = useAuthStore();
 
         gameService.gameGetAll(auth.token).then(res =>{
-            this.datas = res.data.data
+     
+            
+            this.datas = res.data.data.sort((a,b)=>  a.difficulty-b.difficulty)
+
             this.liked = res.data.upd
         })
 
