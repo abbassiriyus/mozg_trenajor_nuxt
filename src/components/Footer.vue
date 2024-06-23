@@ -3,7 +3,7 @@
       <div class="footer__wrapper">
         <div class="footer__left">
           <div class="footer__left-ico">
-            <img src="@/assets/svg/logo-2.svg" alt="">
+            <img style="height:60px" src="@/assets/svg/logo12.png" alt="">
           </div>
           <div class="footer__left-text">Онлайн тренажеры для мозга. <br> Упражнения для развития памяти, <br> внимания и мышления.</div>
           <div class="footer__left-socials">

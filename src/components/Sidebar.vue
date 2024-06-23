@@ -1,7 +1,7 @@
 <template>
     <section class="sidebar">
         <div class="sidebar__container">
-        <router-link to="/"><img class="sidebar__logo" src="@/assets/svg/logo.svg"></router-link>
+        <router-link to="/"><img class="sidebar__logo" style="height:60px" src="@/assets/svg/logo12.png"></router-link>
         <nav class="sidebar__nav nav">
             <ul class="nav__list-item">
             <li class="nav__item">
