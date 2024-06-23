@@ -53,12 +53,17 @@
 <h2  class="window__pravila-game" >
 {{this.gameInfo.information}}
 </h2>
+                               <div v-if="!dynamicComponent && end"> <button class="window__start-button" @click="loadComponent">
+                                <p>Играй еще раз</p>
+                            </button> <br>
+                          <button v-if="!(this.gameInfo.maxlevel==this.gameInfo.thislevel)" class="window__start-button" @click="nextGameStart">
+                                <p>Следующий уровень</p>
+                            </button></div>
 
-                            <button class="window__start-button" @click="loadComponent">
+                            <button v-else  class="window__start-button" @click="loadComponent">
                                 <p>Начать тренировку</p>
                             </button>
-
-
+                         
                            
                         </div>
 
@@ -189,6 +194,19 @@ export default {
             } catch (error) {
                 console.error(`Ошибка при загрузке компонента: ${error}`);
             }
+        }, 
+         async nextGameStart() {
+            // Get the current URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  // Get the value of the 'id' parameter
+  const currentId = parseInt(urlParams.get('id'));
+  
+  // Increment the 'id' parameter by 1
+  const newId = currentId + 1;
+  
+  // Update the window location with the new 'id' parameter
+  window.location.href = `/game?id=${newId}`;
         },
         exitGame() {
             this.startTime = 0;

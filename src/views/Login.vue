@@ -5,7 +5,7 @@
         <div class="page_sign-up">
             <section class="sidebar">
             <div class="sidebar__container">
-                <router-link to="/"><img class="sidebar__logo" src="@/assets/svg/logo.svg"></router-link>
+                <router-link to="/"><img style="height:60px" class="sidebar__logo" src="@/assets/svg/logo12.png"></router-link>
                 <div class = "burger"><img src = "@/assets/svg/ion_menu.svg"></div>
             </div>
             </section>

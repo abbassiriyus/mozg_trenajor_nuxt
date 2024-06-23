@@ -63,9 +63,17 @@ export default {
 
         gameService.gameGetAll(auth.token).then(res =>{
      
-            
-            this.datas = res.data.data.sort((a,b)=>  a.difficulty-b.difficulty)
+          const uniqueTitles = new Map();
 
+    // Loop through the data and add unique titles to the Map
+    res.data.data.forEach(item => {
+      if (!uniqueTitles.has(item.title)) {
+        uniqueTitles.set(item.title, item);
+      }
+    });
+
+    // Convert the Map back to an array
+    this.datas = Array.from(uniqueTitles.values()).sort((a, b) => a.difficulty - b.difficulty);
             this.liked = res.data.upd
         })
 
