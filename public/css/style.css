@@ -1020,6 +1020,10 @@ font-weight: 700;
 }
 /* ================================== 800 ================================ */
 @media (max-width: 800px) {
+  .burger__logo-n{
+    width: 198px;
+    height: 60px;
+  }
   .overlay {
     position: fixed;
     top: 0;
@@ -1175,8 +1179,8 @@ font-weight: 700;
     font-size: 16px;
   }
   .burger__logo-n{
-    width: 90px;
-    height: 38px;
+    width: 150px;
+    height: 44px;
   }
 }
 /* ================================== 450 ================================ */
@@ -1240,8 +1244,8 @@ font-weight: 700;
     font-size: 14px;
   }
   .burger__logo-n{
-    width: 75px;
-    height: 26px;
+    width: 100px;
+    height: 33px;
   }
 
 }

@@ -15,7 +15,15 @@
                 </svg>
             </div>
             <div class="burger__logo">
-                <img class="burger__logo-n" src="@/assets/svg/logo.svg">
+                <img class="burger__logo-n"  src="@/assets/svg/logo12.png" style="
+                @media (max-width: 550px){
+                  .burger__logo-n{
+                  width:90px;
+  }
+                }
+
+  }
+                }" >
             </div>
         </div>
         <p class="content__greeting">{{this.title}}</p>

@@ -1891,10 +1891,7 @@ border-radius: 0.1px 0px 0px 0px;
   .content__greeting{
     font-size: 16px;
   }
-  .burger__logo-n{
-    width: 90px;
-    height: 38px;
-  }
+
   .content__header{
     padding: 10px 20px;
   }
