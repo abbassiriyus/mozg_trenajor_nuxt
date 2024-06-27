@@ -5,7 +5,7 @@
 			<div class="header__menu">
         <div class="header__left">
 			<router-link class="header__logo" to="/">
-				<img style="height:80px" src="@/assets/svg/logo12.png" alt="">
+				<img style="height:80px;" src="@/assets/svg/logo12.png" alt="">
 			</router-link>
         </div>
         
@@ -1302,5 +1302,10 @@ body {
     width: 100%;
     max-width: 100%;
   }
+.header__logo img {
+  height: 55px !important;
+  margin-right: 15px;
+}
+
 }
 </style>
